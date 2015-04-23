@@ -1,5 +1,6 @@
 package com.szaidi.flashcode;
 
+import android.app.AlertDialog;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.hardware.Camera.Parameters;
@@ -227,7 +228,11 @@ public class MainActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_about) {
+            new AlertDialog.Builder(this)
+                    .setTitle("FlashCode v1.0.0")
+                    .setMessage("FlashCode is a free and open source app. Copyright 2015 Sajjad Zaidi. All Rights Reserved.")
+                    .show();
             return true;
         }
 
