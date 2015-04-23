@@ -1,6 +1,7 @@
 package com.szaidi.flashcode;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.hardware.Camera.Parameters;
@@ -26,6 +27,8 @@ public class MainActivity extends ActionBarActivity {
     private Camera camera;
     private boolean isFlashOn = false;
 
+    String versionName = BuildConfig.VERSION_NAME;
+
     protected void onStop() {
         super.onStop();
         if (camera != null) {
@@ -38,6 +41,16 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.app_name)
+                .setMessage("FlashCode lets you easily convert any message into morse code. Simply type in your message and tap the button! It will convert your message to morse code and transmit via your flashlight!")
+                .setPositiveButton(R.string.dialogClose, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .show();
 
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
@@ -230,8 +243,13 @@ public class MainActivity extends ActionBarActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_about) {
             new AlertDialog.Builder(this)
-                    .setTitle("FlashCode v1.0.0")
-                    .setMessage("FlashCode is a free and open source app. Copyright 2015 Sajjad Zaidi. All Rights Reserved.")
+                    .setTitle("Flash Code v" + versionName)
+                    .setMessage("Flash Code is a free and open source app. Copyright 2015 Sajjad Zaidi. All Rights Reserved.")
+                    .setPositiveButton(R.string.dialogClose, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    })
                     .show();
             return true;
         }
