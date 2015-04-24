@@ -27,13 +27,29 @@
         android:hint="Please enter your message here"
         android:id="@id/editText" />
 
-    <Button
-        android:id="@+id/button"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/editText"
-        android:layout_marginTop="30px"
-        android:text="SEND" />
+        android:layout_centerInParent="true"
+        android:layout_below="@id/editText">
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30px"
+            android:text="SEND" />
+
+        <Button
+            android:id="@+id/buttonStop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30px"
+            android:text="STOP" />
+
+    </LinearLayout>
+
 
 </RelativeLayout>

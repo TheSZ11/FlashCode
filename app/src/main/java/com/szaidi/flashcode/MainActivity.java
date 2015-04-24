@@ -61,6 +61,7 @@ public class MainActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
         editText = (EditText) findViewById(R.id.editText);
         Button mButton = (Button) findViewById(R.id.button);
+        Button stopButton = (Button) findViewById(R.id.buttonStop);
         Context context = this;
         PackageManager pm = context.getPackageManager();
 
@@ -82,13 +83,14 @@ public class MainActivity extends ActionBarActivity {
                     @Override
                     public void run() {
                         Looper.prepare();
-                        outer: for (int i = 0; i < text.length(); i++) {
+                        outer:
+                        for (int i = 0; i < text.length(); i++) {
                             letter = text.charAt(i) + "";
                             morseLetter = convert(letter);
 
-                            if(letter.equals(" ")){
+                            if (letter.equals(" ")) {
                                 try {
-                                    Thread.sleep(2000);
+                                    Thread.sleep(3500);
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                     // handle the exception...
@@ -97,8 +99,6 @@ public class MainActivity extends ActionBarActivity {
                                 }
                                 continue outer;
                             }
-
-                            Toast.makeText(getApplicationContext(), morseLetter, Toast.LENGTH_SHORT).show();
 
                             for (int j = 0; j < morseLetter.length(); j++) {
                                 if (morseLetter.charAt(j) == '-') {
@@ -169,10 +169,29 @@ public class MainActivity extends ActionBarActivity {
                                     return;
                                 }
                             }
-
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                                // handle the exception...
+                                // For example consider calling Thread.currentThread().interrupt(); here.
+                                Thread.currentThread().interrupt();
+                            }
                         }
                     }
                 }).start();
+            }
+        });
+
+        stopButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                stopThread = true;
+                if (camera != null) {
+                    camera.release();
+                }
+                onResume();
             }
         });
 
