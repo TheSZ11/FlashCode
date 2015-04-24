@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.hardware.Camera.Parameters;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -23,14 +24,18 @@ import java.util.jar.JarEntry;
 public class MainActivity extends ActionBarActivity {
 
     private Toolbar toolbar;
+    private Parameters p;
     EditText editText;
     private Camera camera;
     private boolean isFlashOn = false;
+    private boolean stopThread = false;
 
     String versionName = BuildConfig.VERSION_NAME;
 
-    protected void onStop() {
-        super.onStop();
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopThread = true;
         if (camera != null) {
             camera.release();
         }
@@ -64,83 +69,110 @@ public class MainActivity extends ActionBarActivity {
             return;
         }
 
-        camera = Camera.open();
-        final Parameters p = camera.getParameters();
-
         mButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                String text = editText.getText().toString();
-                String letter;
-                String morseLetter;
 
-                for (int i = 0; i < text.length(); i++) {
-                    letter = text.charAt(i) + "";
-                    morseLetter = convert(letter);
+                new Thread(new Runnable() {
+                    String text = editText.getText().toString();
+                    String letter;
+                    String morseLetter;
 
-                    Toast.makeText(getApplicationContext(), morseLetter, Toast.LENGTH_SHORT).show();
+                    @Override
+                    public void run() {
+                        Looper.prepare();
+                        outer: for (int i = 0; i < text.length(); i++) {
+                            letter = text.charAt(i) + "";
+                            morseLetter = convert(letter);
 
-                    for (int j = 0; j < morseLetter.length(); j++) {
-                        if (morseLetter.charAt(j) == '-') {
-                            if (!isFlashOn) {
-                                p.setFlashMode(Parameters.FLASH_MODE_TORCH);
-                                camera.setParameters(p);
-                                camera.startPreview();
-                                isFlashOn = true;
+                            if(letter.equals(" ")){
                                 try {
-                                    Thread.sleep(1000);
+                                    Thread.sleep(2000);
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                     // handle the exception...
                                     // For example consider calling Thread.currentThread().interrupt(); here.
                                     Thread.currentThread().interrupt();
                                 }
-                                p.setFlashMode(Parameters.FLASH_MODE_OFF);
-                                camera.setParameters(p);
-                                camera.stopPreview();
-                                isFlashOn = false;
-                                try {
-                                    Thread.sleep(500);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                    // handle the exception...
-                                    // For example consider calling Thread.currentThread().interrupt(); here.
-                                    Thread.currentThread().interrupt();
+                                continue outer;
+                            }
+
+                            Toast.makeText(getApplicationContext(), morseLetter, Toast.LENGTH_SHORT).show();
+
+                            for (int j = 0; j < morseLetter.length(); j++) {
+                                if (morseLetter.charAt(j) == '-') {
+                                    if (!isFlashOn && !stopThread) {
+                                        p.setFlashMode(Parameters.FLASH_MODE_TORCH);
+                                        if (!stopThread) {
+                                            camera.setParameters(p);
+                                            camera.stopPreview();
+                                        }
+                                        isFlashOn = true;
+                                        try {
+                                            Thread.sleep(1000);
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                            // handle the exception...
+                                            // For example consider calling Thread.currentThread().interrupt(); here.
+                                            Thread.currentThread().interrupt();
+                                        }
+                                        p.setFlashMode(Parameters.FLASH_MODE_OFF);
+                                        if (!stopThread) {
+                                            camera.setParameters(p);
+                                            camera.stopPreview();
+                                        }
+                                        isFlashOn = false;
+                                        try {
+                                            Thread.sleep(500);
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                            // handle the exception...
+                                            // For example consider calling Thread.currentThread().interrupt(); here.
+                                            Thread.currentThread().interrupt();
+                                        }
+                                    }
+                                } else if (morseLetter.charAt(j) == '.') {
+                                    if (!isFlashOn && !stopThread) {
+                                        p.setFlashMode(Parameters.FLASH_MODE_TORCH);
+                                        if (!stopThread) {
+                                            camera.setParameters(p);
+                                            camera.stopPreview();
+                                        }
+                                        isFlashOn = true;
+                                        try {
+                                            Thread.sleep(500);
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                            // handle the exception...
+                                            // For example consider calling Thread.currentThread().interrupt(); here.
+                                            Thread.currentThread().interrupt();
+                                        }
+                                        p.setFlashMode(Parameters.FLASH_MODE_OFF);
+
+                                        if (!stopThread) {
+                                            camera.setParameters(p);
+                                            camera.stopPreview();
+                                        }
+                                        isFlashOn = false;
+                                        try {
+                                            Thread.sleep(500);
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                            // handle the exception...
+                                            // For example consider calling Thread.currentThread().interrupt(); here.
+                                            Thread.currentThread().interrupt();
+                                        }
+                                    }
+                                }
+                                if (stopThread) {
+                                    return;
                                 }
                             }
-                        } else if (morseLetter.charAt(j) == '.') {
-                            if (!isFlashOn) {
-                                p.setFlashMode(Parameters.FLASH_MODE_TORCH);
-                                camera.setParameters(p);
-                                camera.startPreview();
-                                isFlashOn = true;
-                                try {
-                                    Thread.sleep(500);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                    // handle the exception...
-                                    // For example consider calling Thread.currentThread().interrupt(); here.
-                                    Thread.currentThread().interrupt();
-                                }
-                                p.setFlashMode(Parameters.FLASH_MODE_OFF);
-                                camera.setParameters(p);
-                                camera.stopPreview();
-                                isFlashOn = false;
-                                try {
-                                    Thread.sleep(500);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                    // handle the exception...
-                                    // For example consider calling Thread.currentThread().interrupt(); here.
-                                    Thread.currentThread().interrupt();
-                                }
-                            }
+
                         }
-
                     }
-
-                }
+                }).start();
             }
         });
 
@@ -231,6 +263,14 @@ public class MainActivity extends ActionBarActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        camera = Camera.open();
+        p = camera.getParameters();
+        stopThread = false;
     }
 
     @Override
