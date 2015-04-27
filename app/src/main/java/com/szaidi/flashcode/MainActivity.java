@@ -175,7 +175,7 @@ public class MainActivity extends ActionBarActivity {
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                                 // handle the exception...
-                                // For example consider calling Thread.currentThread().interrupt(); here.
+                                // For example consider calling Thread.currentThread().interrupt(); here .
                                 Thread.currentThread().interrupt();
                             }
                         }

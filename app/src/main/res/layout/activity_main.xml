@@ -17,7 +17,8 @@
         android:layout_above="@+id/editText"
         android:layout_marginBottom="30px"
         android:text="Flash Code"
-        android:textSize="45dp" />
+        android:textSize="45dp"
+        android:id="@+id/textView" />
 
 
     <EditText
@@ -47,7 +48,6 @@
             android:id="@+id/buttonStop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_marginTop="30px"
             android:text="STOP" />
 
@@ -58,14 +58,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/abc_ic_search_api_mtrl_alpha"
-        android:layout_gravity="bottom|right"
+        android:layout_gravity="bottom|end"
         fab:fab_colorNormal="@color/colorPrimary"
         fab:fab_colorPressed="@color/colorPrimaryDark"
         fab:fab_colorRipple="@color/colorPrimaryDark"
-        android:layout_marginBottom="43dp"
+        android:layout_marginBottom="47dp"
         android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/linearLayout"
-        android:layout_toEndOf="@+id/linearLayout" />
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>
