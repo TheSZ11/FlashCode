@@ -75,6 +75,7 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
+                stopThread = false;
                 new Thread(new Runnable() {
                     String text = editText.getText().toString();
                     String letter;
@@ -187,11 +188,10 @@ public class MainActivity extends ActionBarActivity {
 
             @Override
             public void onClick(View v) {
+                p.setFlashMode(Parameters.FLASH_MODE_OFF);
+                camera.setParameters(p);
+                camera.stopPreview();
                 stopThread = true;
-                if (camera != null) {
-                    camera.release();
-                }
-                onResume();
             }
         });
 
