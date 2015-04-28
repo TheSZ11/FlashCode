@@ -18,6 +18,8 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.software.shell.fab.ActionButton;
+
 import java.lang.Thread;
 import java.util.jar.JarEntry;
 
@@ -74,8 +76,14 @@ public class MainActivity extends ActionBarActivity {
         editText = (EditText) findViewById(R.id.editText);
         Button mButton = (Button) findViewById(R.id.button);
         Button stopButton = (Button) findViewById(R.id.buttonStop);
-        Context context = this;
+        Context context = getApplicationContext();
         PackageManager pm = context.getPackageManager();
+        ActionButton actionButton = (ActionButton)findViewById(R.id.action_button);
+
+        actionButton.setButtonColor(getResources().getColor(R.color.colorPrimary));
+        actionButton.setButtonColorPressed(getResources().getColor(R.color.colorPrimaryDark));
+        actionButton.setImageResource(R.drawable.fab_plus_icon);
+
 
         if (!pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
             Log.e("err", "Device has no camera!");

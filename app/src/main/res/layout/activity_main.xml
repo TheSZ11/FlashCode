@@ -53,18 +53,15 @@
 
     </LinearLayout>
 
-    <com.melnykov.fab.FloatingActionButton
-        android:id="@+id/fab"
+    <com.software.shell.fab.ActionButton
+        android:id="@+id/action_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/abc_ic_search_api_mtrl_alpha"
-        android:layout_gravity="bottom|end"
-        fab:fab_colorNormal="@color/colorPrimary"
-        fab:fab_colorPressed="@color/colorPrimaryDark"
-        fab:fab_colorRipple="@color/colorPrimaryDark"
-        android:layout_marginBottom="47dp"
+        android:layout_marginBottom="86dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:elevation = "5dp"
+        />
 
 
 </RelativeLayout>
