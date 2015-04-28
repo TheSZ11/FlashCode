@@ -41,21 +41,33 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
+    public void checkFirstRun() {
+        boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("isFirstRun", true);
+        if (isFirstRun) {
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.app_name)
+                    .setMessage("FlashCode lets you easily convert any message into morse code. Simply type in your message and tap the button! It will convert your message to morse code and transmit via your flashlight!")
+                    .setPositiveButton(R.string.dialogClose, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    })
+                    .show();
+
+            getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+                    .edit()
+                    .putBoolean("isFirstRun", false)
+                    .commit();
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        new AlertDialog.Builder(this)
-                .setTitle(R.string.app_name)
-                .setMessage("FlashCode lets you easily convert any message into morse code. Simply type in your message and tap the button! It will convert your message to morse code and transmit via your flashlight!")
-                .setPositiveButton(R.string.dialogClose, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                })
-                .show();
+        checkFirstRun();
 
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
