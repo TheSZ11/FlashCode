@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/material_blue_grey_900">
 
     <include
         android:id="@+id/tool_bar"
@@ -16,6 +17,7 @@
         android:layout_centerVertical="true"
         android:layout_above="@+id/editText"
         android:layout_marginBottom="30px"
+        android:textColor="@color/fab_material_white"
         android:text="Flash Code"
         android:textSize="45dp"
         android:id="@+id/textView" />
@@ -27,6 +29,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:hint="Please enter your message here"
+        android:textColorHint="@color/fab_material_white"
         android:id="@id/editText" />
 
     <LinearLayout
@@ -52,16 +55,5 @@
             android:text="STOP" />
 
     </LinearLayout>
-
-    <com.software.shell.fab.ActionButton
-        android:id="@+id/action_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="86dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:elevation = "5dp"
-        />
-
 
 </RelativeLayout>

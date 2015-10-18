@@ -78,12 +78,6 @@ public class MainActivity extends ActionBarActivity {
         Button stopButton = (Button) findViewById(R.id.buttonStop);
         Context context = getApplicationContext();
         PackageManager pm = context.getPackageManager();
-        ActionButton actionButton = (ActionButton)findViewById(R.id.action_button);
-
-        actionButton.setButtonColor(getResources().getColor(R.color.colorPrimary));
-        actionButton.setButtonColorPressed(getResources().getColor(R.color.colorPrimaryDark));
-        actionButton.setImageResource(R.drawable.fab_plus_icon);
-
 
         if (!pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
             Log.e("err", "Device has no camera!");
