@@ -19,17 +19,17 @@
         android:layout_marginBottom="30px"
         android:textColor="@color/fab_material_white"
         android:text="Flash Code"
-        android:textSize="45dp"
+        android:textSize="75dp"
         android:id="@+id/textView" />
-
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:layout_marginTop="30dp"
         android:hint="Please enter your message here"
-        android:textColorHint="@color/fab_material_white"
+        android:textColor="@android:color/white"
         android:id="@id/editText" />
 
     <LinearLayout
@@ -37,6 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_below="@id/editText"
+        android:layout_marginTop="30dp"
         android:id="@+id/linearLayout">
 
         <Button

@@ -317,7 +317,7 @@ public class MainActivity extends ActionBarActivity {
         if (id == R.id.action_about) {
             new AlertDialog.Builder(this)
                     .setTitle("Flash Code v" + versionName)
-                    .setMessage("Flash Code is a free and open source app. Copyright 2015 Sajjad Zaidi. All Rights Reserved.")
+                    .setMessage("Flash Code is a free app by Sajjad Zaidi.")
                     .setPositiveButton(R.string.dialogClose, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
 
